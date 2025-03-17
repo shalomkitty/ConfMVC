@@ -49,8 +49,10 @@ namespace ConfInfrastructure.Controllers
         // GET: Tickets/Create
         public IActionResult Create()
         {
-            ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Description");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
+            //ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Description");
+            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
+            ViewBag.ConferenceId = new SelectList(_context.Conferences.ToList(), "Id", "Description");
+            ViewBag.PublicationId = new SelectList(_context.Users.ToList(), "Id", "Email");
             return View();
         }
 

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace ConfDomain.Model;
 
-public partial class Conference
+public partial class Conference : Entity
 {
-    public int Id { get; set; }
 
     public string Title { get; set; } = null!;
 
@@ -14,13 +12,14 @@ public partial class Conference
 
     public DateOnly Date { get; set; }
 
-    [Display(Name = "Publication ID")]
     public int PublicationId { get; set; }
 
-    [Display(Name = "Publication ID")]
     public int OrganizatorId { get; set; }
 
-    public virtual Organizator Organizator { get; set; } = null!;
+    public virtual Organizator? Organizator { get; set; }
+
+    //public virtual Publication Publication { get; set; } = null!;
+    public virtual Publication? Publication { get; set; }
 
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
 }

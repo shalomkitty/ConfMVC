@@ -48,7 +48,8 @@ namespace ConfInfrastructure.Controllers
         // GET: Publications/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Full name");
+            ViewBag.UserId = new SelectList(_context.Users.ToList(), "Id", "FullName");
+
             return View();
         }
 

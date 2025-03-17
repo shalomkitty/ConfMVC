@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ConfInfrastructure</title>
     <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min_state2.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ConfInfrastructure.styles.css" asp-append-version="true" />
 </head>
@@ -22,8 +23,23 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Users" asp-controller="Users" asp-action="">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Organizators" asp-controller="Organizators" asp-action="">Organizators</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Publications" asp-controller="Publications" asp-action="">Publications</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Conferences" asp-controller="Conferences" asp-action="">Conferences</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Tickets" asp-controller="Tickets" asp-action="">Tickets</a>
                         </li>
                     </ul>
                 </div>

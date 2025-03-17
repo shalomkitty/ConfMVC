@@ -48,7 +48,9 @@ namespace ConfInfrastructure.Controllers
         // GET: Conferences/Create
         public IActionResult Create()
         {
-            ViewData["OrganizatorId"] = new SelectList(_context.Organizators, "Id", "Description");
+            //ViewData["OrganizatorId"] = new SelectList(_context.Organizators, "Id", "Description");
+            ViewBag.PublicationId = new SelectList(_context.Publications.ToList(), "Id", "Title");
+            ViewBag.OrganizatorId = new SelectList(_context.Organizators.ToList(), "Id", "Description");
             return View();
         }
 
@@ -66,6 +68,7 @@ namespace ConfInfrastructure.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["OrganizatorId"] = new SelectList(_context.Organizators, "Id", "Description", conference.OrganizatorId);
+            ViewData["PublicationId"] = new SelectList(_context.Publications, "Id", "Title", conference.PublicationId);
             return View(conference);
         }
 
