@@ -52,7 +52,7 @@ namespace ConfInfrastructure.Controllers
             //ViewData["ConferenceId"] = new SelectList(_context.Conferences, "Id", "Description");
             //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
             ViewBag.ConferenceId = new SelectList(_context.Conferences.ToList(), "Id", "Description");
-            ViewBag.PublicationId = new SelectList(_context.Users.ToList(), "Id", "Email");
+            ViewBag.UserId = new SelectList(_context.Users.ToList(), "Id", "Email");
             return View();
         }
 
@@ -61,7 +61,7 @@ namespace ConfInfrastructure.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Date,Place,Price,ConferenceId,UserId,Id")] Ticket ticket)
+        public async Task<IActionResult> Create([Bind("Price,ConferenceId,UserId,Id")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using ConfDomain.Model;
 using Microsoft.EntityFrameworkCore;
 
-//namespace ConfDomain.Model;
-namespace ConfInfrastructure;
+namespace ConfDomain.Model;
 
 public partial class DbconappContext : DbContext
 {
@@ -43,6 +41,9 @@ public partial class DbconappContext : DbContext
                 .HasColumnType("ntext")
                 .HasColumnName("description");
             entity.Property(e => e.OrganizatorId).HasColumnName("organizator_id");
+            entity.Property(e => e.Place)
+                .HasMaxLength(50)
+                .HasColumnName("place");
             entity.Property(e => e.PublicationId).HasColumnName("publication_id");
             entity.Property(e => e.Title)
                 .HasMaxLength(50)
@@ -52,6 +53,11 @@ public partial class DbconappContext : DbContext
                 .HasForeignKey(d => d.OrganizatorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Conference_Organizator");
+
+            entity.HasOne(d => d.Publication).WithMany(p => p.Conferences)
+                .HasForeignKey(d => d.PublicationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Conference_Publication");
         });
 
         modelBuilder.Entity<Organizator>(entity =>
