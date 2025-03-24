@@ -42,6 +42,8 @@ public partial class DbconappContext : DbContext
             entity.Property(e => e.Description)
                 .HasColumnType("ntext")
                 .HasColumnName("description");
+            entity.Property(e => e.Place).HasColumnName("place");
+            entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.OrganizatorId).HasColumnName("organizator_id");
             entity.Property(e => e.PublicationId).HasColumnName("publication_id");
             entity.Property(e => e.Title)
@@ -93,7 +95,6 @@ public partial class DbconappContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ConferenceId).HasColumnName("conference_id");
-            entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.Conference).WithMany(p => p.Tickets)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ConfDomain.Model;
 
-public partial class User : Entity
+public partial class User: Entity
 {
 
     public string FullName { get; set; } = null!;

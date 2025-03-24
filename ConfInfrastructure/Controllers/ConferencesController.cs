@@ -59,7 +59,7 @@ namespace ConfInfrastructure.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Place,Date,PublicationId,OrganizatorId,Id")] Conference conference)
+        public async Task<IActionResult> Create([Bind("Title,Description,Place,Date,Price,PublicationId,OrganizatorId,Id")] Conference conference)
         {
             if (ModelState.IsValid)
             {

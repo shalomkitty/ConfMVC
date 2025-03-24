@@ -5,3 +5,44 @@
 <div class="text-center">
     <h1 class="display-4">Conference application</h1>
 </div>
+
+<div class="row">
+    <div class="col-3">
+        <div id="countByYearChart"></div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawCharts);
+
+        function drawCharts() {
+            fetch('/api/charts/countByYear')
+                .then(response => response.json())
+                .then(data => {
+                    const dataTable = new google.visualization.DataTable();
+                    dataTable.addColumn('string', 'Date');
+                    dataTable.addColumn('number', 'Conference count');
+
+                    data.forEach(item => {
+                        dataTable.addRow([item.date, item.count]);
+                 });
+
+                    const options = {
+                        title: 'By year',
+                        width: 600,
+                        height: 400,
+                        legend: { position: 'none' },
+                    };
+
+                    const chart = new google.visualization.ColumnChart(document.getElementById('countByYearChart'));
+
+                    chart.draw(dataTable, options);
+                });
+        }
+    </script>
+}
+

@@ -25,6 +25,9 @@
                 @Html.DisplayNameFor(model => model.Place)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PublicationId)
             </th>
             <th>
@@ -45,9 +48,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Place)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Place)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PublicationId)
             </td>
