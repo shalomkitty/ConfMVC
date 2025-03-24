@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace ConfDomain.Model;
 
-public partial class Organizator : Entity
+public partial class Organizator
 {
+    public int Id { get; set; }
 
     public string Name { get; set; } = null!;
 

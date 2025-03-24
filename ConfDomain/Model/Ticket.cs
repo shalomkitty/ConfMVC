@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace ConfDomain.Model;
 
-public partial class Ticket : Entity
+public partial class Ticket
 {
+    public int Id { get; set; }
 
     public int ConferenceId { get; set; }
 

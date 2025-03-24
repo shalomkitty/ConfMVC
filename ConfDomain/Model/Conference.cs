@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace ConfDomain.Model;
 
-public partial class Conference : Entity
+public partial class Conference
 {
+    public int Id { get; set; }
 
     public string Title { get; set; } = null!;
 
@@ -12,7 +13,7 @@ public partial class Conference : Entity
 
     public string Place { get; set; } = null!;
 
-    public DateOnly Date { get; set; }
+    public DateTime Date { get; set; }
 
     public int? Price { get; set; }
 

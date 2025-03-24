@@ -37,9 +37,7 @@ public partial class DbconappContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Date).HasColumnName("date");
-            entity.Property(e => e.Description)
-                .HasColumnType("ntext")
-                .HasColumnName("description");
+            entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.OrganizatorId).HasColumnName("organizator_id");
             entity.Property(e => e.Place)
                 .HasMaxLength(50)
@@ -66,9 +64,7 @@ public partial class DbconappContext : DbContext
             entity.ToTable("Organizator");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Description)
-                .HasColumnType("ntext")
-                .HasColumnName("description");
+            entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");

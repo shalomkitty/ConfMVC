@@ -1,4 +1,5 @@
-﻿@{
+﻿@using ConfInfrastructure.ViewModels
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,43 +7,23 @@
     <h1 class="display-4">Conference application</h1>
 </div>
 
-<div class="row">
-    <div class="col-3">
-        <div id="countByYearChart"></div>
-    </div>
-</div>
+@model List<UpcomingConferenceViewModel>
 
-@section Scripts
+<h2>Upcoming conferences</h2>
+
+@foreach (var conf in Model)
 {
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawCharts);
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4>@conf.Title</h4>
+            <p>@conf.Description</p>
+            <p><strong>Date:</strong> @conf.Date.ToShortDateString()</p>
+            <p><strong>Place:</strong> @conf.Place</p>
 
-        function drawCharts() {
-            fetch('/api/charts/countByYear')
-                .then(response => response.json())
-                .then(data => {
-                    const dataTable = new google.visualization.DataTable();
-                    dataTable.addColumn('string', 'Date');
-                    dataTable.addColumn('number', 'Conference count');
-
-                    data.forEach(item => {
-                        dataTable.addRow([item.date, item.count]);
-                 });
-
-                    const options = {
-                        title: 'By year',
-                        width: 600,
-                        height: 400,
-                        legend: { position: 'none' },
-                    };
-
-                    const chart = new google.visualization.ColumnChart(document.getElementById('countByYearChart'));
-
-                    chart.draw(dataTable, options);
-                });
-        }
-    </script>
+        </div>
+    </div>
 }
+
+
+
 
