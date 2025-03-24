@@ -66,7 +66,7 @@ namespace ConfInfrastructure.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", publication.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "FullName", publication.UserId);
             return View(publication);
         }
 
@@ -83,7 +83,7 @@ namespace ConfInfrastructure.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", publication.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "FullName", publication.UserId);
             return View(publication);
         }
 
@@ -119,7 +119,7 @@ namespace ConfInfrastructure.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", publication.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "FullName", publication.UserId);
             return View(publication);
         }
 

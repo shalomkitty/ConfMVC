@@ -15,5 +15,5 @@ public partial class Publication
 
     public virtual ICollection<Conference> Conferences { get; set; } = new List<Conference>();
 
-    public virtual User User { get; set; } = null!;
+    public virtual User? User { get; set; }
 }
