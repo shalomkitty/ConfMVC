@@ -89,8 +89,7 @@
             </div>
         </div>
 
-        @section Scripts
-        {
+        @section Scripts {
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
             <script type="text/javascript">
                 google.charts.load('current', {'packages':['corechart']});
@@ -106,7 +105,7 @@
 
                             data.forEach(item => {
                                 dataTable.addRow([item.year, item.count]);
-                         });
+                            });
 
                             const options = {
                                 title: 'Conference by year',
@@ -116,7 +115,6 @@
                             };
 
                             const chart = new google.visualization.ColumnChart(document.getElementById('countByYearChart'));
-
                             chart.draw(dataTable, options);
                         });
                 }

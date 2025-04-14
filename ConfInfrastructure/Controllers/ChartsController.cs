@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace ConfInfrastructure.Controllers
 {
@@ -10,6 +11,7 @@ namespace ConfInfrastructure.Controllers
     public class ChartsController : ControllerBase
     {
         private record CountByYearResponseItem(string Year, int Count);
+        private record CountByMonthResponseItem(string Month, int Count);
 
         private readonly DbconappContext conferenceContext;
 
@@ -29,5 +31,20 @@ namespace ConfInfrastructure.Controllers
 
             return new JsonResult(responseItems);
         }
-    }   
+
+        [HttpGet("countByMonth")]
+        public async Task<JsonResult> GetCountByMonthAsync(CancellationToken cancellationToken)
+        {
+            var responseItems = await conferenceContext
+                .Conferences
+                .GroupBy(conference => conference.Date.Month)
+                .OrderBy(group => group.Key)
+                .Select(group => new CountByMonthResponseItem(
+                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(group.Key),
+                    group.Count()))
+                .ToListAsync(cancellationToken);
+
+            return new JsonResult(responseItems);
+        }
+    }
 }
