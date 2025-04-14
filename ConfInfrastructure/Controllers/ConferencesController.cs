@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ConfDomain.Model;
 using ConfInfrastructure;
+using Microsoft.Extensions.Hosting;
 
 namespace ConfInfrastructure.Controllers
 {
     public class ConferencesController : Controller
     {
         private readonly DbconappContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ConferencesController(DbconappContext context)
+        public ConferencesController(DbconappContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Conferences
@@ -59,10 +62,26 @@ namespace ConfInfrastructure.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Place,Date,Price,PublicationId,OrganizatorId,Id")] Conference conference)
+        public async Task<IActionResult> Create([Bind("Title,Description,Place,Date,Price,PublicationId,OrganizatorId,Id")] Conference conference, IFormFile? imageFile)
         {
             if (ModelState.IsValid)
             {
+                if (imageFile != null && imageFile.Length > 0)
+                {
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder);
+                    }
+                    string uniqueFileName = Guid.NewGuid().ToString() + Path.GetFileName(imageFile.FileName);
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(fileStream);
+                    }
+                    conference.Image_path = Path.Combine("/images", uniqueFileName);
+                }
+
                 _context.Add(conference);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

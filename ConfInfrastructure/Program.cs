@@ -1,3 +1,4 @@
+using ConfDomain.Model;
 using ConfInfrastructure;
 using Microsoft.EntityFrameworkCore;
 

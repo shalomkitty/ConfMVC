@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ConfInfrastructure.Models;
 using ConfInfrastructure.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using ConfDomain.Model;
 
 namespace ConfInfrastructure.Controllers;
 

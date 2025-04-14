@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ConfDomain.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,23 +10,24 @@ namespace ConfInfrastructure.Controllers
     public class ChartsController : ControllerBase
     {
         private record CountByYearResponseItem(string Year, int Count);
-        private readonly DbconappContext dbconappContext;
-        public ChartsController(DbconappContext dbconappContext)
+
+        private readonly DbconappContext conferenceContext;
+
+        public ChartsController(DbconappContext confContext)
         {
-            this.dbconappContext = dbconappContext;
+            this.conferenceContext = confContext;
         }
 
         [HttpGet("countByYear")]
         public async Task<JsonResult> GetCountByYearAsync(CancellationToken cancellationToken)
         {
-            var responseItems = await dbconappContext
+            var responseItems = await conferenceContext
                 .Conferences
-                .GroupBy(conference => conference.Date)
+                .GroupBy(conference => conference.Date.Year)
                 .Select(group => new CountByYearResponseItem(group.Key.ToString(), group.Count()))
                 .ToListAsync(cancellationToken);
 
             return new JsonResult(responseItems);
         }
-    }
-
+    }   
 }

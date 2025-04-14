@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Publication page</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -43,5 +43,50 @@
             </td>
         </tr>
 }
+        <!--
+        <div class="row">
+            <div class="col-3">
+                <div id="PublicationCountByYear"></div>
+            </div>
+        </div>
+
+        @section Scripts
+        {
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawCharts);
+
+                function drawCharts() {
+                    fetch('/api/charts/PublicationCountByYear')
+                        .then(response => response.json())
+                        .then(data => {
+                            const dataTable = new google.visualization.DataTable();
+                            dataTable.addColumn('string', 'Year');
+                            dataTable.addColumn('number', 'Publication count');
+
+                            data.forEach(item => {
+                                dataTable.addRow([item.year, item.count]);
+                         });
+
+                            const options = {
+                                title: 'Publication by year',
+                                width: 600,
+                                height: 400,
+                                legend: { position: 'none' },
+                            };
+
+                            const chart = new google.visualization.ColumnChart(document.getElementById('PublicationCountByYearChart'));
+
+                            chart.draw(dataTable, options);
+                        });
+                }
+            </script>
+        }   
+        -->
+
+    
+
+
     </tbody>
 </table>

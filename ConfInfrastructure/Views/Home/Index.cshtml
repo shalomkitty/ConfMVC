@@ -3,13 +3,19 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Conference application</h1>
-</div>
+
 
 @model List<UpcomingConferenceViewModel>
 
-<h2>Upcoming conferences</h2>
+<h1 class="text-center">About MeetMint</h1>
+<p class="text-center">
+    MeetMint is an innovative, user-friendly app designed to streamline conference experiences for organizers and attendees alike. 
+    Whether you're hosting a global summit or joining local meetups, MeetMint makes connecting easy and effective.
+    This website simplifies conference management, empowering you to focus on creating impactful experiences. 
+    Join MeetMint today and transform the way you meet!
+</p>
+
+<h2 class="text-center">Upcoming conferences</h2>
 
 @foreach (var conf in Model)
 {

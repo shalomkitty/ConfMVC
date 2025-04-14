@@ -47,6 +47,24 @@
                 <select asp-for="OrganizatorId" class="form-control" asp-items="ViewBag.OrganizatorId"></select>
                 <span asp-validation-for="OrganizatorId" class="text-danger"></span>
             </div>
+
+            <!-- Display current image if exists -->
+            @if (!string.IsNullOrEmpty(Model.Image_path))
+            {
+                <div class="form-group">
+                    <label>Current Image:</label>
+                    <div>
+                        <img src="@Model.Image_path" alt="Current Image" style="max-width:200px;" />
+                    </div>
+                </div>
+            }
+
+            <!-- File input to replace image -->
+            <div class="form-group">
+                <label>Replace Image:</label>
+                <input type="file" name="imageFile" class="form-control" />
+            </div>
+
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
