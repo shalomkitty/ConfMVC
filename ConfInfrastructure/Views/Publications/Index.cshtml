@@ -43,47 +43,43 @@
             </td>
         </tr>
 }
-        <!--
         <div class="row">
             <div class="col-3">
-                <div id="PublicationCountByYear"></div>
+                <div id="countByDayChart"></div>
             </div>
         </div>
 
-        @section Scripts
-        {
+        @section Scripts {
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
             <script type="text/javascript">
                 google.charts.load('current', {'packages':['corechart']});
                 google.charts.setOnLoadCallback(drawCharts);
 
                 function drawCharts() {
-                    fetch('/api/charts/PublicationCountByYear')
+                    fetch('/api/charts/countByDay')
                         .then(response => response.json())
                         .then(data => {
                             const dataTable = new google.visualization.DataTable();
-                            dataTable.addColumn('string', 'Year');
+                            dataTable.addColumn('string', 'Day');
                             dataTable.addColumn('number', 'Publication count');
 
                             data.forEach(item => {
-                                dataTable.addRow([item.year, item.count]);
-                         });
+                                dataTable.addRow([item.day, item.count]);
+                            });
 
                             const options = {
-                                title: 'Publication by year',
+                                title: 'Publication by day',
                                 width: 600,
                                 height: 400,
                                 legend: { position: 'none' },
                             };
 
-                            const chart = new google.visualization.ColumnChart(document.getElementById('PublicationCountByYearChart'));
-
+                            const chart = new google.visualization.ColumnChart(document.getElementById('countByDayChart'));
                             chart.draw(dataTable, options);
                         });
                 }
             </script>
-        }   
-        -->
+        }
 
     
 

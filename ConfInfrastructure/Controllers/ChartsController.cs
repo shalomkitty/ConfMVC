@@ -12,12 +12,14 @@ namespace ConfInfrastructure.Controllers
     {
         private record CountByYearResponseItem(string Year, int Count);
         private record CountByMonthResponseItem(string Month, int Count);
+        private record CountByDayResponseItem(string Day, int Count);
 
         private readonly DbconappContext conferenceContext;
 
-        public ChartsController(DbconappContext confContext)
+        public ChartsController(DbconappContext confContext, DbconappContext pubContext)
         {
             this.conferenceContext = confContext;
+            this.conferenceContext = pubContext;
         }
 
         [HttpGet("countByYear")]
@@ -41,6 +43,21 @@ namespace ConfInfrastructure.Controllers
                 .OrderBy(group => group.Key)
                 .Select(group => new CountByMonthResponseItem(
                     CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(group.Key),
+                    group.Count()))
+                .ToListAsync(cancellationToken);
+
+            return new JsonResult(responseItems);
+        }
+
+        [HttpGet("countByDay")]
+        public async Task<JsonResult> GetCountByDayAsync(CancellationToken cancellationToken)
+        {
+            var responseItems = await conferenceContext
+                .Publications
+                .GroupBy(conference => conference.UploadDate.Day)
+                .OrderBy(group => group.Key)
+                .Select(group => new CountByDayResponseItem(
+                    group.Key.ToString("d", CultureInfo.CurrentCulture),
                     group.Count()))
                 .ToListAsync(cancellationToken);
 
