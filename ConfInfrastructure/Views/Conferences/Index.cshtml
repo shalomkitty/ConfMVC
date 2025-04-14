@@ -85,7 +85,7 @@
 
         <div class="row">
             <div class="col-3">
-                <div id="countByYearChart"></div>
+                <div id="countByMonthChart"></div>
             </div>
         </div>
 
@@ -96,25 +96,25 @@
                 google.charts.setOnLoadCallback(drawCharts);
 
                 function drawCharts() {
-                    fetch('/api/charts/countByYear')
+                    fetch('/api/charts/countByMonth')
                         .then(response => response.json())
                         .then(data => {
                             const dataTable = new google.visualization.DataTable();
-                            dataTable.addColumn('string', 'Year');
+                            dataTable.addColumn('string', 'Month');
                             dataTable.addColumn('number', 'Conference count');
 
                             data.forEach(item => {
-                                dataTable.addRow([item.year, item.count]);
+                                dataTable.addRow([item.month, item.count]);
                             });
 
                             const options = {
-                                title: 'Conference by year',
+                                title: 'Conference by month',
                                 width: 600,
                                 height: 400,
                                 legend: { position: 'none' },
                             };
 
-                            const chart = new google.visualization.ColumnChart(document.getElementById('countByYearChart'));
+                            const chart = new google.visualization.ColumnChart(document.getElementById('countByMonthChart'));
                             chart.draw(dataTable, options);
                         });
                 }
