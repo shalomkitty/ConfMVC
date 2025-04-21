@@ -7,29 +7,35 @@
 
 @model List<UpcomingConferenceViewModel>
 
-<h1 class="text-center">About MeetMint</h1>
-<p class="text-center">
-    MeetMint is an innovative, user-friendly app designed to streamline conference experiences for organizers and attendees alike. 
-    Whether you're hosting a global summit or joining local meetups, MeetMint makes connecting easy and effective.
-    This website simplifies conference management, empowering you to focus on creating impactful experiences. 
-    Join MeetMint today and transform the way you meet!
-</p>
 
-<h2 class="text-center">Upcoming conferences</h2>
+<section class="home-hero">
+    <h1 class="text-center">About MeetMint</h1>
+    <p class="text-center">
+        MeetMint is an innovative, user-friendly app designed to streamline conference experiences for organizers and attendees alike. 
+        Whether you're hosting a global summit or joining local meetups, MeetMint makes connecting easy and effective.
+        This website simplifies conference management, empowering you to focus on creating impactful experiences. 
+        Join MeetMint today and transform the way you meet!
+    </p>
+</section>
 
-@foreach (var conf in Model)
-{
-    <div class="card mb-3">
-        <div class="card-body">
-            <h4>@conf.Title</h4>
-            <p>@conf.Description</p>
-            <p><strong>Date:</strong> @conf.Date.ToShortDateString()</p>
-            <p><strong>Place:</strong> @conf.Place</p>
-
-        </div>
+<section class="upcoming-section">
+    <h1>Upcoming conferences</h1>
+    <div class="upcoming-list">
+        @foreach (var conf in Model)
+        {
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h4>@conf.Title</h4>
+                    <p>@conf.Description</p>
+                    <div class="date-place">
+                        <span>@conf.Date.ToShortDateString()</span>
+                        <span>@conf.Place</span>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
-}
-
+</section>
 
 
 

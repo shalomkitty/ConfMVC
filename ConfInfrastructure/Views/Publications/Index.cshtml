@@ -1,88 +1,80 @@
 ﻿@model IEnumerable<ConfDomain.Model.Publication>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Publication list";
 }
 
-<h1>Publication page</h1>
+<section class="user-list-section">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">@ViewData["Title"]</h1>
+        <a asp-action="Create" class="btn btn-primary">
+            Create New
+        </a>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UploadDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UploadDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.FullName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-        <div class="row">
-            <div class="col-3">
-                <div id="countByDayChart"></div>
-            </div>
-        </div>
-
-        @section Scripts {
-            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-            <script type="text/javascript">
-                google.charts.load('current', {'packages':['corechart']});
-                google.charts.setOnLoadCallback(drawCharts);
-
-                function drawCharts() {
-                    fetch('/api/charts/countByDay')
-                        .then(response => response.json())
-                        .then(data => {
-                            const dataTable = new google.visualization.DataTable();
-                            dataTable.addColumn('string', 'Day');
-                            dataTable.addColumn('number', 'Publication count');
-
-                            data.forEach(item => {
-                                dataTable.addRow([item.day, item.count]);
-                            });
-
-                            const options = {
-                                title: 'Publication by day',
-                                width: 600,
-                                height: 400,
-                                legend: { position: 'none' },
-                            };
-
-                            const chart = new google.visualization.ColumnChart(document.getElementById('countByDayChart'));
-                            chart.draw(dataTable, options);
-                        });
-                }
-            </script>
+    <ul class="list-group">
+        @foreach (var pub in Model)
+        {
+            <li class="list-group-item py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="mb-1"><strong>Title:</strong> @pub.Title</p>
+                        <p class="mb-1"><strong>Uploaded:</strong> @pub.UploadDate.ToShortDateString()</p>
+                        <p class="mb-0"><strong>By:</strong> @pub.User.FullName</p>
+                    </div>
+                    <div class="btn-group">
+                        <a asp-action="Edit"
+                           asp-route-id="@pub.Id"
+                           class="btn btn-sm btn-outline-user">
+                            Edit
+                        </a>
+                        <a asp-action="Details"
+                           asp-route-id="@pub.Id"
+                           class="btn btn-sm btn-outline-user">
+                            Details
+                        </a>
+                        <a asp-action="Delete"
+                           asp-route-id="@pub.Id"
+                           class="btn btn-sm btn-outline-user">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            </li>
         }
+    </ul>
 
-    
+    <div class="row mt-5">
+        <div class="col-12">
+            <div id="countByDayChart"></div>
+        </div>
+    </div>
+</section>
 
+@section Scripts {
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawCharts);
 
-    </tbody>
-</table>
+        function drawCharts() {
+          fetch('/api/charts/countByDay')
+            .then(resp => resp.json())
+            .then(data => {
+              const dt = new google.visualization.DataTable();
+              dt.addColumn('string', 'Day');
+              dt.addColumn('number', 'Publications');
+              data.forEach(i => dt.addRow([i.day, i.count]));
+
+              const opts = {
+                title: 'Publications by Day',
+                width: 600,
+                height: 400,
+                legend: { position: 'none' }
+              };
+              new google.visualization.ColumnChart(
+                document.getElementById('countByDayChart')
+              ).draw(dt, opts);
+            });
+        }
+    </script>
+}

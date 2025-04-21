@@ -1,0 +1,225 @@
+﻿:root {
+    /* Shared */
+    --nav-bg: #2E2C2F;
+    --nav-text: #F3E8EE;
+    --nav-accent: #BACDB0;
+    --btn-bg: #2a9d8f;
+    --btn-hover: #1b5e6d;
+
+
+    /* Home page */
+    --primary: #2a9d8f;
+    --secondary: #264653;
+    --accent: #e76f51;
+    --bg-light: #f0f4f8;
+    --text-main: #333333;
+}
+
+/* 2. Стиль самої панелі */
+.navbar {
+    background-color: var(--nav-bg) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* 3. Логотип */
+.navbar-brand {
+    color: var(--nav-text) !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+    .navbar-brand:hover {
+        color: var(--nav-accent) !important;
+    }
+
+/* 4. Посилання в меню */
+.navbar-nav .nav-link {
+    color: var(--nav-text) !important;
+    padding: .6rem 1rem;
+    transition: background .2s, color .2s;
+    border-radius: 4px;
+}
+
+    .navbar-nav .nav-link:hover {
+        background-color: var(--nav-accent);
+        color: var(--nav-bg) !important;
+    }
+
+    /* 5. “Кнопки” замість звичайних посилань */
+    .navbar-nav .nav-link.btn-like {
+        background-color: var(--btn-bg);
+        color: white !important;
+        margin-left: .5rem;
+    }
+
+        .navbar-nav .nav-link.btn-like:hover {
+            background-color: var(--btn-hover);
+            color: white !important;
+        }
+
+/* 6. Тогґлер (для мобілки) */
+.navbar-toggler {
+    border-color: var(--nav-text);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,\
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'>\
+      <path stroke='%23f4f1de' stroke-width='2' stroke-linecap='round'\
+            d='M4 7h22M4 15h22M4 23h22'/>\
+    </svg>") !important;
+}
+
+body {
+    background-color: #F3E8EE;
+}
+
+h1 {
+    color: #2E2C2F;
+}
+
+p {
+    color: #2E2C2F;
+}
+
+/* 2. App description */
+.home-hero {
+    background-color: #F3E8EE;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+    .home-hero h1 {
+        color: #2E2C2F;
+        font-size: 2.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .home-hero p {
+        max-width: 700px;
+        margin: 0 auto;
+        color: #735751;
+        line-height: 1.6;
+        font-size: 1.1rem;
+    }
+
+/* 3. Upcoming conferences */
+.upcoming-section {
+    padding: 2rem;
+}
+
+    .upcoming-section h1 {
+        color: #2E2C2F;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+/* 4. Сітка карток конференцій */
+.upcoming-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+    /* 5. Стиль картки */
+    .upcoming-list .card {
+        background: white;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .upcoming-list .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .upcoming-list .card .card-body h4 {
+            color: #2E2C2F;
+            margin-bottom: 0.5rem;
+        }
+
+        .upcoming-list .card .card-body p {
+            color: #735751;
+            margin-bottom: 0.5rem;
+        }
+
+        .upcoming-list .card .card-body .date-place {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 500;
+            color: #2E2C2F;
+            margin-top: 1rem;
+        }
+
+
+
+/* User list page*/
+
+.user-list-section {
+    background-color: var(--bg-light);
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+
+
+    /*  Список */
+    .user-list-section .list-group {
+        margin: 0;
+        padding: 0;
+    }
+
+    .user-list-section .list-group-item {
+        color: #2E2C2F;
+        background-color: white;
+        margin-bottom: 0.5rem;
+        border: none;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        transition: transform 0.1s, box-shadow 0.1s;
+    }
+        .user-list-section .list-group-item small {
+            color: #2E2C2F;
+        }
+
+        .user-list-section .list-group-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+
+    .user-list-section .btn-group .btn {
+        margin: 0 .15rem;
+    }
+
+.btn {
+    border-radius: 4px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-outline-user {
+    color: #2E2C2F;
+    border: 2px solid #2E2C2F;
+    background-color: transparent;
+}
+
+    .btn-outline-user:hover,
+    .btn-outline-user:focus {
+        background-color: #2E2C2F;
+        color: white;
+    }
+
+.btn-primary {
+    background-color: #2E2C2F;
+    border-color: #2E2C2F;
+}
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+        background-color: #F3E8EE;
+        border-color: #F3E8EE;
+    }

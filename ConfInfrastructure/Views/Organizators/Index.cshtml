@@ -1,47 +1,31 @@
 ﻿@model IEnumerable<ConfDomain.Model.Organizator>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Organizator list";
 }
 
-<h1>Organizator page</h1>
+<section class="user-list-section">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">@ViewData["Title"]</h1>
+        <a asp-action="Create" class="btn btn-primary">Create New</a>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Party)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Party)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <ul class="list-group">
+        @foreach (var org in Model)
+        {
+            <li class="list-group-item py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1">@org.Name</h5>
+                        <p class="mb-1"><strong>Description:</strong> @org.Description</p>
+                        <p class="mb-0"><strong>Party:</strong> @org.Party</p>
+                    </div>
+                    <div class="btn-group">
+                        <a asp-action="Edit" asp-route-id="@org.Id" class="btn btn-sm btn-outline-user">Edit</a>
+                        <a asp-action="Details" asp-route-id="@org.Id" class="btn btn-sm btn-outline-user">Details</a>
+                        <a asp-action="Delete" asp-route-id="@org.Id" class="btn btn-sm btn-outline-user">Delete</a>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</section>

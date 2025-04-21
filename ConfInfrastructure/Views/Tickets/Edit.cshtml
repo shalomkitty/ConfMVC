@@ -1,39 +1,45 @@
 ﻿@model ConfDomain.Model.Ticket
-
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Ticket";
 }
 
-<h1>Edit</h1>
-
-<h4>Ticket</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ConferenceId" class="control-label"></label>
-                <select asp-for="ConferenceId" class="form-control" asp-items="ViewBag.ConferenceId"></select>
-                <span asp-validation-for="ConferenceId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<section class="user-list-section">
+    <div class="mb-4">
+        <h1 class="mb-1">@ViewData["Title"]</h1>
+        <h4 class="text-secondary">Ticket</h4>
+        <hr />
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+                <div class="mb-3">
+                    <label asp-for="ConferenceId" class="form-label"></label>
+                    <select asp-for="ConferenceId"
+                            class="form-control"
+                            asp-items="ViewBag.ConferenceId">
+                    </select>
+                    <span asp-validation-for="ConferenceId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="UserId" class="form-label"></label>
+                    <select asp-for="UserId"
+                            class="form-control"
+                            asp-items="ViewBag.UserId">
+                    </select>
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-primary me-2">Save</button>
+                    <a asp-action="Index" class="btn btn-outline-user">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

@@ -1,58 +1,35 @@
 ﻿@model ConfDomain.Model.Conference
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Conference Details";
 }
 
-<h1>Details</h1>
+<section class="user-list-section">
+    <div class="mb-4">
+        <h1 class="mb-1">@ViewData["Title"]</h1>
+    </div>
 
-<div>
-    <h4>Conference</h4>
-    <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Place)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Place)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PublicationId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PublicationId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Organizator)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Organizator.Name)
-        </dd>
-        <!-- Image Display Section -->
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Title)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Title)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Description)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Description)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Date)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Date)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Place)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Place)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Price)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Price)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.PublicationId)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.PublicationId)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Organizator)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Organizator.Name)</dd>
+
         @if (!string.IsNullOrEmpty(Model.Image_path))
         {
             <dt class="col-sm-2">Image</dt>
@@ -61,8 +38,9 @@
             </dd>
         }
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+    <div class="mt-3">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-user me-2">Edit</a>
+        <a asp-action="Index" class="btn btn-outline-user">Back to List</a>
+    </div>
+</section>

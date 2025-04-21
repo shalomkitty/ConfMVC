@@ -1,36 +1,32 @@
 ﻿@model ConfDomain.Model.Publication
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Publication Details";
 }
 
-<h1>Details</h1>
+<section class="user-list-section">
+    <div class="mb-4">
+        <h1 class="mb-1">@ViewData["Title"]</h1>
+    </div>
 
-<div>
-    <h4>Publication</h4>
-    <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UploadDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UploadDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.FullName)
-        </dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Title)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Title)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.UploadDate)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.UploadDate)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.User)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.User.FullName)</dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+    <div class="mt-3">
+        <a asp-action="Edit"
+           asp-route-id="@Model.Id"
+           class="btn btn-outline-user me-2">
+            Edit
+        </a>
+        <a asp-action="Index" class="btn btn-outline-user">
+            Back to List
+        </a>
+    </div>
+</section>

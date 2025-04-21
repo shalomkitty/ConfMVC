@@ -1,130 +1,78 @@
 ﻿@model IEnumerable<ConfDomain.Model.Conference>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Conference list";
 }
 
-<h1>Conference page</h1>
+<section class="user-list-section">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">@ViewData["Title"]</h1>
+        <a asp-action="Create" class="btn btn-primary">Create New</a>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Place)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PublicationId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Organizator)
-            </th>
-            <th>
-                Image
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Place)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublicationId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Organizator.Name)
-            </td>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.Image_path))
-                    {
-                        <img src="@item.Image_path" alt="Conference Image" style="max-width:100px;" />
-                    }
-                    else
-                    {
-                        <span>No Image</span>
-                    }
-                </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-
-        <div class="row">
-            <div class="col-3">
-                <div id="countByMonthChart"></div>
-            </div>
-        </div>
-
-        @section Scripts {
-            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-            <script type="text/javascript">
-                google.charts.load('current', {'packages':['corechart']});
-                google.charts.setOnLoadCallback(drawCharts);
-
-                function drawCharts() {
-                    fetch('/api/charts/countByMonth')
-                        .then(response => response.json())
-                        .then(data => {
-                            const dataTable = new google.visualization.DataTable();
-                            dataTable.addColumn('string', 'Month');
-                            dataTable.addColumn('number', 'Conference count');
-
-                            data.forEach(item => {
-                                dataTable.addRow([item.month, item.count]);
-                            });
-
-                            const options = {
-                                title: 'Conference by month',
-                                width: 600,
-                                height: 400,
-                                legend: { position: 'none' },
-                            };
-
-                            const chart = new google.visualization.ColumnChart(document.getElementById('countByMonthChart'));
-                            chart.draw(dataTable, options);
-                        });
-                }
-            </script>
+    <ul class="list-group">
+        @foreach (var conf in Model)
+        {
+            <li class="list-group-item py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1">@conf.Title</h5>
+                        <p class="mb-1"><strong>Description:</strong> @conf.Description</p>
+                        <p class="mb-1"><strong>Date:</strong> @conf.Date.ToShortDateString()</p>
+                        <p class="mb-1"><strong>Place:</strong> @conf.Place</p>
+                        <p class="mb-1"><strong>Price:</strong> @conf.Price</p>
+                        <p class="mb-1"><strong>Publication ID:</strong> @conf.PublicationId</p>
+                        <p class="mb-1"><strong>Organizator:</strong> @conf.Organizator.Name</p>
+                        @if (!string.IsNullOrEmpty(conf.Image_path))
+                        {
+                            <img src="@conf.Image_path"
+                                 alt="Conference Image"
+                                 style="max-width:100px;"
+                                 class="mt-2" />
+                        }
+                        else
+                        {
+                            <small class="text-muted">No Image</small>
+                        }
+                    </div>
+                    <div class="btn-group">
+                        <a asp-action="Edit" asp-route-id="@conf.Id" class="btn btn-sm btn-outline-user">Edit</a>
+                        <a asp-action="Details" asp-route-id="@conf.Id" class="btn btn-sm btn-outline-user">Details</a>
+                        <a asp-action="Delete" asp-route-id="@conf.Id" class="btn btn-sm btn-outline-user">Delete</a>
+                    </div>
+                </div>
+            </li>
         }
+    </ul>
 
-       
+    <div class="row mt-5">
+        <div class="col-12">
+            <div id="countByMonthChart"></div>
+        </div>
+    </div>
+</section>
 
-       
-    </tbody>
-
-
-</table>
+@section Scripts {
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(drawCharts);
+        function drawCharts() {
+          fetch('/api/charts/countByMonth')
+            .then(r => r.json())
+            .then(data => {
+              const dt = new google.visualization.DataTable();
+              dt.addColumn('string', 'Month');
+              dt.addColumn('number', 'Count');
+              data.forEach(i => dt.addRow([i.month, i.count]));
+              new google.visualization.ColumnChart(
+                document.getElementById('countByMonthChart')
+              ).draw(dt, {
+                title: 'Conferences by Month',
+                width: 600,
+                height: 400,
+                legend: { position: 'none' }
+              });
+            });
+        }
+    </script>
+}

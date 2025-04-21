@@ -1,44 +1,51 @@
 ﻿@model ConfDomain.Model.Organizator
-
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Organizator";
 }
 
-<h1>Edit</h1>
-
-<h4>Organizator</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Party" class="control-label"></label>
-                <input asp-for="Party" class="form-control" />
-                <span asp-validation-for="Party" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<section class="user-list-section">
+    <div class="mb-4">
+        <h1 class="mb-1">@ViewData["Title"]</h1>
+        <h4 class="text-secondary">Organizator</h4>
+        <hr />
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Party" class="form-label"></label>
+                    <input asp-for="Party" class="form-control" />
+                    <span asp-validation-for="Party" class="text-danger"></span>
+                </div>
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-primary me-2">Save</button>
+                    <a asp-action="Index" class="btn btn-outline-user">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
