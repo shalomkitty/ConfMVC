@@ -5,13 +5,12 @@
     --nav-accent: #BACDB0;
     --btn-bg: #2a9d8f;
     --btn-hover: #1b5e6d;
-
-
     /* Home page */
     --primary: #2a9d8f;
     --secondary: #264653;
     --accent: #e76f51;
-    --bg-light: #f0f4f8;
+    --bg-light: #F3E8EE;
+    /* --bg-light: #f0f4f8;*/
     --text-main: #333333;
 }
 
