@@ -19,12 +19,10 @@ namespace ConfInfrastructure.Controllers
     public class ConferencesController : Controller
     {
         private readonly DbconappContext _context;
-        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ConferencesController(DbconappContext context, IWebHostEnvironment webHostEnvironment)
+        public ConferencesController(DbconappContext context)
         {
             _context = context;
-            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -190,20 +188,13 @@ namespace ConfInfrastructure.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (imageFile != null && imageFile.Length > 0)
+                if (imageFile?.Length > 0)
                 {
-                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
-                    if (!Directory.Exists(uploadsFolder))
-                    {
-                        Directory.CreateDirectory(uploadsFolder);
-                    }
-                    string uniqueFileName = Guid.NewGuid().ToString() + Path.GetFileName(imageFile.FileName);
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await imageFile.CopyToAsync(fileStream);
-                    }
-                    conference.Image_path = Path.Combine("/images", uniqueFileName);
+                    using var ms = new MemoryStream();
+                    await imageFile.CopyToAsync(ms);
+
+                    conference.ImageData = ms.ToArray();
+                    conference.ImageMimeType = imageFile.ContentType; 
                 }
 
                 _context.Add(conference);
@@ -213,6 +204,18 @@ namespace ConfInfrastructure.Controllers
             ViewData["OrganizatorId"] = new SelectList(_context.Organizators, "Id", "Description", conference.OrganizatorId);
             ViewData["PublicationId"] = new SelectList(_context.Publications, "Id", "Title", conference.PublicationId);
             return View(conference);
+        }
+
+        public async Task<IActionResult> GetImage(int id)
+        {
+            var conf = await _context.Conferences
+               .AsNoTracking()
+               .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (conf == null || conf.ImageData == null)
+                return NotFound();
+
+            return File(conf.ImageData, conf.ImageMimeType!);
         }
 
         // GET: Conferences/Edit/5

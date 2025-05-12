@@ -38,6 +38,8 @@ public partial class DbconappContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.ImageData).HasColumnName("imageData");
+            entity.Property(e => e.ImageMimeType).HasColumnName("imageMimeType");
             entity.Property(e => e.OrganizatorId).HasColumnName("organizator_id");
             entity.Property(e => e.Place)
                 .HasMaxLength(50)

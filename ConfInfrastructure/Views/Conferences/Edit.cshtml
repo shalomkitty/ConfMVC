@@ -51,21 +51,6 @@
                     <span asp-validation-for="OrganizatorId" class="text-danger"></span>
                 </div>
 
-                @* Existing image preview *@
-                @if (!string.IsNullOrEmpty(Model.Image_path))
-                {
-                    <div class="mb-3">
-                        <label class="form-label">Current Image</label>
-                        <div>
-                            <img src="@Model.Image_path" alt="Conference Image" style="max-width:200px;" class="mb-2" />
-                        </div>
-                    </div>
-                }
-
-                <div class="mb-3">
-                    <label class="form-label">Replace Image</label>
-                    <input type="file" name="imageFile" class="form-control" />
-                </div>
 
                 <input type="hidden" asp-for="Id" />
 

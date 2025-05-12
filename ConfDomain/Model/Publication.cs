@@ -9,10 +9,12 @@ public partial class Publication
     public int Id { get; set; }
 
     public string Title { get; set; } = null!;
-    [Display(Name = "User ID")]
+
+    [Display(Name = "User Id")]
     public int UserId { get; set; }
+
     [Display(Name = "Upload date")]
-    public DateOnly UploadDate { get; set; }
+    public DateTime UploadDate { get; set; }
 
     public virtual ICollection<Conference> Conferences { get; set; } = new List<Conference>();
 

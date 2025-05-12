@@ -16,18 +16,21 @@ public partial class Conference
 
     public DateTime Date { get; set; }
 
-    [Display(Name="Price (in UAH)")]
     public int? Price { get; set; }
-    [Display(Name = "Publication ID")]
+
+    [Display(Name = "Publication Id")]
     public int PublicationId { get; set; }
-    [Display(Name = "Organizator ID")]
+
+    [Display(Name = "Organizator Id")]
     public int OrganizatorId { get; set; }
 
-    public string? Image_path { get; set; }
+    public byte[]? ImageData { get; set; }
 
-    public virtual Organizator? Organizator { get; set; }
+    public string? ImageMimeType { get; set; }
 
-    public virtual Publication? Publication { get; set; }
+    public virtual Organizator? Organizator { get; set; } 
+
+    public virtual Publication? Publication { get; set; } 
 
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
 }

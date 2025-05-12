@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ConfDomain.Model.Conference>
+﻿@using DocumentFormat.OpenXml.Spreadsheet
+@model IEnumerable<ConfDomain.Model.Conference>
 @{
     ViewData["Title"] = "Conference list";
 }
@@ -24,16 +25,20 @@
                         <p class="mb-1"><strong>Price:</strong> @conf.Price</p>
                         <p class="mb-1"><strong>Publication ID:</strong> @conf.PublicationId</p>
                         <p class="mb-1"><strong>Organizator:</strong> @conf.Organizator.Name</p>
-                        @if (!string.IsNullOrEmpty(conf.Image_path))
+                        @foreach (var item in Model)
                         {
-                            <img src="@conf.Image_path"
-                                 alt="Conference Image"
-                                 style="max-width:100px;"
-                                 class="mt-2" />
-                        }
-                        else
-                        {
-                            <small class="text-muted">No Image</small>
+                            <td>
+                                @if (item.ImageData != null)
+                                {
+                                    <img src="@Url.Action("GetImage", "Conferences", new { id = item.Id })"
+                                         style="max-width:100px"
+                                         alt="Conference Image" />
+                                }
+                                else
+                                {
+                                    <span>No Image</span>
+                                }
+                            </td>
                         }
                     </div>
                     <div class="btn-group">

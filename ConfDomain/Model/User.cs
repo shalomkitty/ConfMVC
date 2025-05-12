@@ -7,10 +7,12 @@ namespace ConfDomain.Model;
 public partial class User
 {
     public int Id { get; set; }
+
     [Display(Name = "Full name")]
     public string FullName { get; set; } = null!;
 
     public string Email { get; set; } = null!;
+
     [Display(Name = "Date of birth")]
     public DateOnly DateOfBirth { get; set; }
 
