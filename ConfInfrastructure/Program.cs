@@ -1,5 +1,4 @@
 using ConfDomain.Model;
-using ConfInfrastructure;
 using ConfInfrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -9,11 +8,13 @@ using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DbconappContext>(option => option.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+
+//builder.Services.AddDefaultIdentity<ConfInfrastructure.Models.User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityContext>();
 
 
 
@@ -26,7 +27,15 @@ builder.Services.AddIdentity<ConfInfrastructure.Models.User, IdentityRole>(opts 
     // other password / lockout settings
 }).AddEntityFrameworkStores<IdentityContext>();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(); 
+builder.Services.AddRazorPages(); // Add Razor Pages support
+
+
+/*builder.Services
+  .AddControllersWithViews()
+  .AddRazorRuntimeCompilation();
+*/
+
 
 var app = builder.Build();
 
@@ -37,6 +46,9 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+
+
 
 
 app.UseStaticFiles();
@@ -50,12 +62,7 @@ app.UseAuthorization();
 
 app.MapStaticAssets();
 
-app.MapControllerRoute(
-    name: "areas",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-);
-
-
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")

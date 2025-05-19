@@ -1,0 +1,87 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<h1>@ViewData["Title"]</h1>
+<section class="user-list-section">
+    <div class="mb-4">
+        <h1 class="mb-1">Use a local account to log in</h1>
+        <hr />
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form id="account" method="post">
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"
+                     role="alert">
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email"
+                           class="form-control"
+                           autocomplete="username"
+                           placeholder="name@example.com"
+                           aria-required="true" />
+                    <label asp-for="Input.Email">Email</label>
+                    <span asp-validation-for="Input.Email"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password"
+                           type="password"
+                           class="form-control"
+                           autocomplete="current-password"
+                           placeholder="Password"
+                           aria-required="true" />
+                    <label asp-for="Input.Password">Password</label>
+                    <span asp-validation-for="Input.Password"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input asp-for="Input.RememberMe"
+                           class="form-check-input" />
+                    <label asp-for="Input.RememberMe"
+                           class="form-check-label">
+                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    </label>
+                </div>
+
+                <div class="d-grid mb-3">
+                    <button id="login-submit"
+                            type="submit"
+                            class="btn btn-primary btn-lg">
+                        Log in
+                    </button>
+                </div>
+
+                <div class="d-flex flex-column">
+                    <a id="forgot-password"
+                       asp-page="./ForgotPassword"
+                       class="btn btn-link p-0 mb-1">
+                        Forgot your password?
+                    </a>
+                    <a asp-page="./Register"
+                       asp-route-returnUrl="@Model.ReturnUrl"
+                       class="btn btn-link p-0 mb-1">
+                        Register as a new user
+                    </a>
+                    <a id="resend-confirmation"
+                       asp-page="./ResendEmailConfirmation"
+                       class="btn btn-link p-0">
+                        Resend email confirmation
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,6 +1,4 @@
-﻿@page
-@model ConfInfrastructure.Views.Conferences.ImportModel
-@{
+﻿@{
     ViewData["Title"] = "Import";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -14,7 +12,7 @@
     </div>
 }
 
-<form asp-action="ImportFromExcel" method="post" enctype="multipart/form-data">
+<form asp-action="ImportFromExcel" asp-controller="Conferences" method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="excelFile" class="form-label">Select excel file</label>
         <input type="file" name="excelFile" id="excelFile" class="form-control" />

@@ -25,20 +25,15 @@
                         <p class="mb-1"><strong>Price:</strong> @conf.Price</p>
                         <p class="mb-1"><strong>Publication ID:</strong> @conf.PublicationId</p>
                         <p class="mb-1"><strong>Organizator:</strong> @conf.Organizator.Name</p>
-                        @foreach (var item in Model)
+                        @if (conf.ImageData != null)
                         {
-                            <td>
-                                @if (item.ImageData != null)
-                                {
-                                    <img src="@Url.Action("GetImage", "Conferences", new { id = item.Id })"
-                                         style="max-width:100px"
-                                         alt="Conference Image" />
-                                }
-                                else
-                                {
-                                    <span>No Image</span>
-                                }
-                            </td>
+                            <img src="@Url.Action("GetImage", "Conferences", new { id = conf.Id })"
+                                 style="max-width:100px"
+                                 alt="Conference Image" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
                         }
                     </div>
                     <div class="btn-group">
